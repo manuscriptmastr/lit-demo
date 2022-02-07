@@ -2,7 +2,7 @@ import { html, TemplateResult } from 'lit';
 import '../src/lit-demo.js';
 
 export default {
-  title: 'LitDemo',
+  title: 'lit-demo',
   component: 'lit-demo',
   argTypes: {
     backgroundColor: { control: 'color' },
@@ -20,8 +20,14 @@ interface ArgTypes {
   backgroundColor?: string;
 }
 
-const Template: Story<ArgTypes> = ({ title, backgroundColor = 'white' }: ArgTypes) => html`
-  <lit-demo style="--lit-demo-background-color: ${backgroundColor}" .title=${title}></lit-demo>
+const Template: Story<ArgTypes> = ({
+  title,
+  backgroundColor = 'white',
+}: ArgTypes) => html`
+  <lit-demo
+    style="--lit-demo-background-color: ${backgroundColor}"
+    .title=${title}
+  ></lit-demo>
 `;
 
 export const App = Template.bind({});

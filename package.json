@@ -17,6 +17,7 @@
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\""
   },
   "dependencies": {
+    "currency.js": "^2.0.4",
     "lit": "^2.0.2"
   },
   "devDependencies": {

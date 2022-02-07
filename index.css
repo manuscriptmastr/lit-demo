@@ -1,0 +1,41 @@
+:root {
+  --color-neutral-black: #000;
+  --color-neutral-grey-10: #e5e5e5;
+  --color-neutral-grey-20: #ccc;
+  --color-neutral-grey-30: #b2b2b2;
+  --color-neutral-grey-50: #808080;
+  --color-neutral-grey-5: #f3f3f3;
+  --color-neutral-grey-70: #4d4d4d;
+  --color-neutral-tan-100: #f1ece7;
+  --color-neutral-tan-200: #cfc7c0;
+  --color-neutral-white: #fff;
+  --color-primary-blue-100: #243748;
+  --color-primary-blue-200: #172634;
+  --color-primary-blue-300: #334d64;
+  --color-secondary-red-100: #bd3426;
+  --color-secondary-red-200: #a32417;
+  --color-secondary-red-300: #e54939;
+  --color-system-error-100: #da100b;
+  --color-system-info-100: #06f;
+  --color-system-success-100: #2ab930;
+  --spacing-l: 2rem;
+  --spacing-m: 1.5rem;
+  --spacing-s: 1rem;
+  --spacing-xl: 2.5rem;
+  --spacing-xs: 0.5rem;
+  --spacing-xxs: 0.25rem;
+}
+
+html,
+body,
+lit-demo,
+main {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Libre Baskerville';
+}

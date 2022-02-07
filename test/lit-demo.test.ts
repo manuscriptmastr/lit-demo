@@ -1,8 +1,6 @@
+import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit';
-import { fixture, expect } from '@open-wc/testing';
-
-import { LitDemo } from '../src/LitDemo.js';
-import '../src/lit-demo.js';
+import { LitDemo } from '../src/lit-demo.js';
 
 describe('LitDemo', () => {
   let element: LitDemo;
