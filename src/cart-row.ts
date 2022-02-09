@@ -49,6 +49,10 @@ export class CartDetails extends LitElement {
     );
   }
 
+  handleRemove() {
+    this.dispatchEvent(new CustomEvent('remove'));
+  }
+
   render() {
     return html` <article>
       <img src="${this.image}" alt="${this.name}" />
@@ -60,7 +64,7 @@ export class CartDetails extends LitElement {
               ${opt}
             </option>`
         )}</select
-      ><button @click="${console.log}">x</button>
+      ><button @click="${this.handleRemove}">x</button>
     </article>`;
   }
 }

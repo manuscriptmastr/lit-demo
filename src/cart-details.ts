@@ -1,7 +1,13 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { CartRow } from './items.js';
-import { connect, setQuantityByPlu, State, update } from './store/index.js';
+import {
+  connect,
+  removeItemByPlu,
+  setQuantityByPlu,
+  State,
+  update,
+} from './store/index.js';
 
 @customElement('cart-details')
 @connect
@@ -53,7 +59,7 @@ export class CartDetails extends LitElement {
                     quantity="${quantity}"
                     @quantity="${(event: CustomEvent) =>
                       update(setQuantityByPlu(plu, event.detail))}"
-                    @remove="${console.log}"
+                    @remove="${() => update(removeItemByPlu(plu))}"
                   ></cart-row>
                 </li>`
             )}

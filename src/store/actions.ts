@@ -40,11 +40,16 @@ export const addItemByPlu = curry(
   }
 );
 
-// export const removeItemByPlu = curry((store, plu) => {
-//   const exists = store.cart.find(({ item }) => item.plu === plu);
-//   if (!exists) {
-//     throw new Error(`Item with plu '${plu}' does not exist in cart.`);
-//   }
+export const removeItemByPlu = curry(
+  (plu: MenuItem['plu'], state: State): State => {
+    const exists = state.cart.find(({ item }) => item.plu === plu);
+    if (!exists) {
+      throw new Error(`Item with plu '${plu}' does not exist in cart.`);
+    }
 
-//   store.cart = store.cart.filter(({ item }) => item.plu !== plu);
-// });
+    return {
+      ...state,
+      cart: state.cart.filter(({ item }) => item.plu !== plu),
+    };
+  }
+);
