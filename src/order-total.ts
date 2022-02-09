@@ -1,21 +1,42 @@
-import { html, LitElement } from 'lit';
+import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { all } from 'ramda';
 import { connect, State } from './store/index.js';
 import { multiply, sum } from './utils/money.js';
 
 @customElement('order-total')
 @connect
 export class OrderTotal extends LitElement {
-  @property({ type: Boolean }) valid = false;
-
   @property({ type: String }) total = '$0.00';
 
-  stateChanged(state: State) {
+  @property({ type: Boolean }) valid = false;
+
+  static styles = css`
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+  `;
+
+  stateChanged({
+    cart,
+    firstName,
+    lastName,
+    emailAddress,
+    phoneNumber,
+    dateOfBirth,
+  }: State) {
     this.total = sum(
-      state.cart.map(({ item: { price }, quantity }) =>
-        multiply(price, quantity)
-      )
+      cart.map(({ item: { price }, quantity }) => multiply(price, quantity))
     );
+
+    this.valid =
+      !!cart.length &&
+      all(
+        x => !!x.length,
+        [firstName, lastName, emailAddress, phoneNumber, dateOfBirth]
+      );
   }
 
   render() {

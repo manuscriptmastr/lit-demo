@@ -6,6 +6,12 @@ export class CheckoutLayout extends LitElement {
   @property({ type: String }) title = '';
 
   static styles = css`
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
     .checkout {
       height: 100%;
       overflow-y: scroll;

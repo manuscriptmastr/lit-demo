@@ -2,6 +2,8 @@ import './cart-details.js';
 import './cart-row.js';
 import './checkout-layout.js';
 import './checkout-tile.js';
+import './customer-information.js';
+import './form-input.js';
 import './lit-demo.js';
 import './menu.js';
 import './order-total.js';

@@ -10,6 +10,12 @@ export class CheckoutTile extends LitElement {
     .toLowerCase();
 
   static styles = css`
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
     .tile {
       background-color: var(--color-neutral-white);
       border-radius: var(--spacing-xs);

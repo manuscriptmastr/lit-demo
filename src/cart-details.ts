@@ -23,6 +23,12 @@ export class CartDetails extends LitElement {
   }
 
   static styles = css`
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
     ul {
       display: flex;
       flex-direction: column;

@@ -13,6 +13,12 @@ export class AppMenu extends LitElement {
   @property({ type: Array }) items: IMenuItem[] = [];
 
   static styles = css`
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
     ul {
       display: grid;
       gap: var(--spacing-s);

@@ -8,6 +8,12 @@ export class SidebarLayout extends LitElement {
   @property({ type: String }) gap = '0';
 
   static styles = css`
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
     /* Adapted from "The Sidebar" layout from Every Layout */
     .layout {
       display: flex;

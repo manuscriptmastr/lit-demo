@@ -1,9 +1,17 @@
-import { html, LitElement } from 'lit';
+import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 @customElement('lit-demo')
 export class LitDemo extends LitElement {
   @property({ type: String }) title = 'My app';
+
+  static styles = css`
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+  `;
 
   render() {
     return html`

@@ -13,6 +13,12 @@ export class CartDetails extends LitElement {
   @property({ type: Number }) quantity = 1;
 
   static styles = css`
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
     article {
       align-items: center;
       border: 1px solid var(--color-neutral-grey-10);
