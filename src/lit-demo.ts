@@ -7,14 +7,12 @@ export class LitDemo extends LitElement {
 
   render() {
     return html`
-      <app-store>
-        <checkout-layout title="The Neue Nom">
-          <cart-details></cart-details>
-          <app-menu></app-menu>
-          <customer-information></customer-information>
-          <order-total slot="sidebar"></order-total>
-        </checkout-layout>
-      </app-store>
+      <checkout-layout title="The Neue Nom">
+        <cart-details></cart-details>
+        <app-menu></app-menu>
+        <customer-information></customer-information>
+        <order-total slot="sidebar"></order-total>
+      </checkout-layout>
     `;
   }
 }

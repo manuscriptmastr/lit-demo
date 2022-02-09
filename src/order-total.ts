@@ -1,17 +1,18 @@
 import { html, LitElement } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
-import { AppStore } from './app-store.js';
+import { customElement, property } from 'lit/decorators.js';
+import { connect, State } from './store/index.js';
 import { multiply, sum } from './utils/money.js';
 
 @customElement('order-total')
+@connect
 export class OrderTotal extends LitElement {
   @property({ type: Boolean }) valid = false;
 
-  @state() store = this.closest('app-store') as AppStore;
+  @property({ type: String }) total = '$0.00';
 
-  get total() {
-    return sum(
-      this.store.cart.map(({ item: { price }, quantity }) =>
+  stateChanged(state: State) {
+    this.total = sum(
+      state.cart.map(({ item: { price }, quantity }) =>
         multiply(price, quantity)
       )
     );

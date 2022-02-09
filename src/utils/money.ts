@@ -11,7 +11,7 @@ export const add = (a: Money, b: Money) => currency(a).add(b).format();
 export const subtract = (a: Money, b: Money) =>
   currency(a).subtract(b).format();
 
-export const sum = (moneys: Money[]) => moneys.reduce(add, '$0.00');
+export const sum = (moneys: Money[]) => moneys.reduce<string>(add, '$0.00');
 
 export const divide = (value: Money, rate: number) =>
   currency(value).divide(rate).format();

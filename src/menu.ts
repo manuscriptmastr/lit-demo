@@ -1,9 +1,16 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import ITEMS, { MenuItem } from './items.js';
+import { addItemByPlu, connect, State, update } from './store/index.js';
+
+interface IMenuItem extends MenuItem {
+  disabled: boolean;
+}
 
 @customElement('app-menu')
+@connect
 export class AppMenu extends LitElement {
-  @property({ type: Array }) items = [];
+  @property({ type: Array }) items: IMenuItem[] = [];
 
   static styles = css`
     ul {
@@ -55,8 +62,12 @@ export class AppMenu extends LitElement {
     }
   `;
 
-  handleClick() {
-    console.log(this.items);
+  stateChanged(state: State) {
+    this.items = ITEMS.map(({ plu, ...rest }) => ({
+      plu,
+      disabled: state.cart.map(({ item: { plu: _plu } }) => _plu).includes(plu),
+      ...rest,
+    }));
   }
 
   render() {
@@ -68,7 +79,10 @@ export class AppMenu extends LitElement {
               <article>
                 <img src="${image}" alt="${name}" />
                 <h3>${name}</h3>
-                <button ?disabled="${disabled}" @click="${this.handleClick}">
+                <button
+                  ?disabled="${disabled}"
+                  @click="${() => update(addItemByPlu(plu))}"
+                >
                   Buy (${price})
                 </button>
               </article>

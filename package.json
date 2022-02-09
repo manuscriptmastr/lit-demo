@@ -17,8 +17,10 @@
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\""
   },
   "dependencies": {
+    "@types/ramda": "^0.27.64",
     "currency.js": "^2.0.4",
-    "lit": "^2.0.2"
+    "lit": "^2.0.2",
+    "ramda": "^0.28.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.16.4",
