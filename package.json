@@ -17,7 +17,7 @@
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\""
   },
   "dependencies": {
-    "@types/ramda": "^0.27.64",
+    "cleave.js": "^1.6.0",
     "currency.js": "^2.0.4",
     "lit": "^2.0.2",
     "ramda": "^0.28.0"
@@ -30,6 +30,8 @@
     "@open-wc/testing": "next",
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-node-resolve": "^13.0.6",
+    "@types/cleave.js": "^1.4.6",
+    "@types/ramda": "^0.27.64",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
     "@web/dev-server": "^0.1.28",
