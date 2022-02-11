@@ -1,3 +1,5 @@
+import { LitElement } from 'lit';
+
 type Subscriber<T> = (value: T) => void;
 type Updater<T> = Partial<T> | ((store: T) => Partial<T>);
 type Unsubscribe = () => void;
@@ -9,11 +11,6 @@ export interface Store<T> {
 }
 
 type Constructor<T = {}> = new (...args: any[]) => T;
-
-interface CustomElement {
-  connectedCallback?(): void;
-  disconnectedCallback?(): void;
-}
 
 const IdFactory = () => {
   let id = 0;
@@ -70,7 +67,7 @@ export const createStore = <T extends Record<string, any>>(
 };
 
 export const createConnect =
-  <T, U extends Constructor<CustomElement>>(store: Store<T>) =>
+  <T, U extends Constructor<LitElement>>(store: Store<T>) =>
   (mapStateToProps: (state: T) => Partial<U>) =>
   (superclass: U) =>
     class extends superclass {
@@ -84,18 +81,13 @@ export const createConnect =
       }
 
       connectedCallback(): void {
-        if (super.connectedCallback) {
-          super.connectedCallback();
-        }
+        super.connectedCallback();
         this.unsubscribe = store.subscribe(this.updateProperties.bind(this));
         this.updateProperties(store.getState());
       }
 
       disconnectedCallback(): void {
         this.unsubscribe();
-
-        if (super.disconnectedCallback) {
-          super.disconnectedCallback();
-        }
+        super.disconnectedCallback();
       }
     };
