@@ -5,16 +5,18 @@ import {
   connect,
   removeItemByPlu,
   setQuantityByPlu,
-  State,
   update,
 } from './store/index.js';
 
 @customElement('cart-details')
-@connect
+// @ts-ignore
+@connect(({ cart }) => ({ cart }))
 export class CartDetails extends LitElement {
-  @property({ type: Number }) itemCount = 0;
-
   @property({ type: Array }) cart: CartRow[] = [];
+
+  get itemCount() {
+    return this.cart.map(({ quantity }) => quantity).reduce((a, b) => a + b, 0);
+  }
 
   get title() {
     return `Cart (${this.itemCount} ${
@@ -42,13 +44,6 @@ export class CartDetails extends LitElement {
       display: block;
     }
   `;
-
-  stateChanged(state: State) {
-    this.cart = state.cart;
-    this.itemCount = state.cart
-      .map(({ quantity }) => quantity)
-      .reduce((a, b) => a + b, 0);
-  }
 
   render() {
     return html`<checkout-tile title="${this.title}">

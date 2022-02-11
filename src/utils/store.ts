@@ -10,10 +10,9 @@ export interface Store<T> {
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 
-interface CustomElement<T> {
+interface CustomElement {
   connectedCallback?(): void;
   disconnectedCallback?(): void;
-  stateChanged(state: T): void;
 }
 
 const IdFactory = () => {
@@ -71,17 +70,27 @@ export const createStore = <T extends Record<string, any>>(
 };
 
 export const createConnect =
-  <T>(store: Store<T>) =>
-  <U extends Constructor<CustomElement<T>>>(superclass: U) =>
+  <T, U extends Constructor<CustomElement>>(store: Store<T>) =>
+  (mapStateToProps: (state: T) => Partial<U>) =>
+  (superclass: U) =>
     class extends superclass {
       private unsubscribe: Unsubscribe = () => {};
+
+      private updateProperties(state: T) {
+        Object.entries(mapStateToProps(state)).forEach(([key, value]) => {
+          // @ts-ignore
+          this[key] = value;
+        });
+      }
 
       connectedCallback(): void {
         if (super.connectedCallback) {
           super.connectedCallback();
         }
-        this.unsubscribe = store.subscribe(this.stateChanged.bind(this));
-        this.stateChanged(store.getState());
+        // this.unsubscribe = store.subscribe(this.stateChanged.bind(this));
+        // this.stateChanged(store.getState());
+        this.unsubscribe = store.subscribe(this.updateProperties.bind(this));
+        this.updateProperties(store.getState());
       }
 
       disconnectedCallback(): void {

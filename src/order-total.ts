@@ -1,11 +1,24 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { all } from 'ramda';
-import { connect, State } from './store/index.js';
-import { multiply, sum } from './utils/money.js';
+import { connect } from './store/index.js';
+import { multiply } from './utils/money.js';
 
 @customElement('order-total')
-@connect
+// @ts-ignore
+@connect(
+  ({ cart, firstName, lastName, emailAddress, phoneNumber, dateOfBirth }) => ({
+    total: cart.map(({ item: { price }, quantity }) =>
+      multiply(price, quantity)
+    ),
+    valid:
+      !!cart.length &&
+      all(
+        x => !!x.length,
+        [firstName, lastName, emailAddress, phoneNumber, dateOfBirth]
+      ),
+  })
+)
 export class OrderTotal extends LitElement {
   @property({ type: String }) total = '$0.00';
 
@@ -18,26 +31,6 @@ export class OrderTotal extends LitElement {
       box-sizing: border-box;
     }
   `;
-
-  stateChanged({
-    cart,
-    firstName,
-    lastName,
-    emailAddress,
-    phoneNumber,
-    dateOfBirth,
-  }: State) {
-    this.total = sum(
-      cart.map(({ item: { price }, quantity }) => multiply(price, quantity))
-    );
-
-    this.valid =
-      !!cart.length &&
-      all(
-        x => !!x.length,
-        [firstName, lastName, emailAddress, phoneNumber, dateOfBirth]
-      );
-  }
 
   render() {
     return html`<checkout-tile title="Your Total"

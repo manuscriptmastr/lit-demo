@@ -1,16 +1,21 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import ITEMS, { MenuItem } from './items.js';
-import { addItemByPlu, connect, State, update } from './store/index.js';
-
-interface IMenuItem extends MenuItem {
-  disabled: boolean;
-}
+import ITEMS, { CartRow } from './items.js';
+import { addItemByPlu, connect, update } from './store/index.js';
 
 @customElement('app-menu')
-@connect
+// @ts-ignore
+@connect(({ cart }) => ({ cart }))
 export class AppMenu extends LitElement {
-  @property({ type: Array }) items: IMenuItem[] = [];
+  @property({ type: Array }) cart: CartRow[] = [];
+
+  get items() {
+    return ITEMS.map(({ plu, ...rest }) => ({
+      plu,
+      disabled: this.cart.map(({ item: { plu: _plu } }) => _plu).includes(plu),
+      ...rest,
+    }));
+  }
 
   static styles = css`
     *,
@@ -67,14 +72,6 @@ export class AppMenu extends LitElement {
       text-transform: uppercase;
     }
   `;
-
-  stateChanged(state: State) {
-    this.items = ITEMS.map(({ plu, ...rest }) => ({
-      plu,
-      disabled: state.cart.map(({ item: { plu: _plu } }) => _plu).includes(plu),
-      ...rest,
-    }));
-  }
 
   render() {
     return html` <checkout-tile title="Menu">

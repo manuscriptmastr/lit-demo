@@ -1,9 +1,16 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { connect, State, update } from './store/index.js';
+import { connect, update } from './store/index.js';
 
 @customElement('customer-information')
-@connect
+// @ts-ignore
+@connect(({ firstName, lastName, emailAddress, phoneNumber, dateOfBirth }) => ({
+  firstName,
+  lastName,
+  emailAddress,
+  phoneNumber,
+  dateOfBirth,
+}))
 export class CustomerInformation extends LitElement {
   @property({ type: String }) firstName = '';
 
@@ -32,14 +39,6 @@ export class CustomerInformation extends LitElement {
       width: 100%;
     }
   `;
-
-  stateChanged(state: State) {
-    this.firstName = state.firstName;
-    this.lastName = state.lastName;
-    this.emailAddress = state.emailAddress;
-    this.phoneNumber = state.phoneNumber;
-    this.dateOfBirth = state.dateOfBirth;
-  }
 
   render() {
     return html`<checkout-tile title="Customer Information">
