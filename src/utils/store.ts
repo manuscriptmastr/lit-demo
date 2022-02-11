@@ -87,8 +87,6 @@ export const createConnect =
         if (super.connectedCallback) {
           super.connectedCallback();
         }
-        // this.unsubscribe = store.subscribe(this.stateChanged.bind(this));
-        // this.stateChanged(store.getState());
         this.unsubscribe = store.subscribe(this.updateProperties.bind(this));
         this.updateProperties(store.getState());
       }
