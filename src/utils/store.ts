@@ -76,7 +76,10 @@ export const createConnect =
       private updateProperties(state: T) {
         Object.entries(mapStateToProps(state)).forEach(([key, value]) => {
           // @ts-ignore
-          this[key] = value;
+          if (value !== this[key]) {
+            // @ts-ignore
+            this[key] = value;
+          }
         });
       }
 

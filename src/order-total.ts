@@ -2,14 +2,14 @@ import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { all } from 'ramda';
 import { connect } from './store/index.js';
-import { multiply } from './utils/money.js';
+import { multiply, sum } from './utils/money.js';
 
 @customElement('order-total')
 // @ts-ignore
 @connect(
   ({ cart, firstName, lastName, emailAddress, phoneNumber, dateOfBirth }) => ({
-    total: cart.map(({ item: { price }, quantity }) =>
-      multiply(price, quantity)
+    total: sum(
+      cart.map(({ item: { price }, quantity }) => multiply(price, quantity))
     ),
     valid:
       !!cart.length &&
